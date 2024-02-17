@@ -67,7 +67,7 @@ footer {
     position: relative;
     z-index: 1;
     width: 100px;
-    height: -20px;
+    height: 20px;
     background-color: #343a40;
     cursor: move;
 }
