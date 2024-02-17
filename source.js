@@ -42,6 +42,7 @@ NoteContainer.addEventListener('mousedown', function(event) {
         function onMouseUp() {
             document.removeEventListener('mousemove', onMouseMove);
             document.removeEventListener('mouseup', onMouseUp);
+            updateArrows();
         }
     }
     if (event.target.classList.contains('note-sizer')) {
