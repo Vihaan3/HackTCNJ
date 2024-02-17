@@ -20,12 +20,14 @@ document.getElementById('NoteMaker').addEventListener('keydown', function(event)
 });
 
 var NoteContainer = document.getElementById('container');
+var DragTarget = null;
 
 NoteContainer.addEventListener('mousedown', function(event) {
 
     if (event.target.classList.contains('note-dragger')) {
+        DragTarget = event.target;
         var startMousePos = { x: event.clientX, y: event.clientY };
-        var startDivPos = { x: event.target.offsetLeft, y: event.target.offsetTop };
+        var startDivPos = { x: DragTarget.offsetLeft, y: DragTarget.offsetTop };
 
         document.addEventListener('mousemove', onMouseMove);
         document.addEventListener('mouseup', onMouseUp);
@@ -40,22 +42,21 @@ NoteContainer.addEventListener('mousedown', function(event) {
             var containerRect = container.getBoundingClientRect();
             if (newPosition.x <  0) {
                 newPosition.x =  0;
-            } else if (newPosition.x + event.target.offsetWidth > containerRect.width) {
-                newPosition.x = containerRect.width - event.target.offsetWidth;
+            } else if (newPosition.x + DragTarget.offsetWidth > containerRect.width) {
+                newPosition.x = containerRect.width - DragTarget.offsetWidth;
             }
         
             if (newPosition.y <  0) {
                 newPosition.y =  0;
-            } else if (newPosition.y + event.target.offsetHeight > containerRect.height) {
-                newPosition.y = containerRect.height - event.target.offsetHeight;
+            } else if (newPosition.y + DragTarget.offsetHeight > containerRect.height) {
+                newPosition.y = containerRect.height - DragTarget.offsetHeight;
             }
         
             //change the position of the note
             //sometimes the whole container moves so that's not good
-            if (event.target.classList.contains('note-dragger')) {
-                event.target.style.left = newPosition.x + 'px';
-                event.target.style.top = newPosition.y + 'px';
-            }
+            DragTarget.style.left = newPosition.x + 'px';
+            DragTarget.style.top = newPosition.y + 'px';
+            
         }
 
         function onMouseUp() {
@@ -64,9 +65,10 @@ NoteContainer.addEventListener('mousedown', function(event) {
         }
     }
     if (event.target.classList.contains('note-sizer')) {
+        DragTarget = event.target;
         event.preventDefault();
         var startMousePos = { x: event.clientX, y: event.clientY };
-        var startSize = { width: event.target.parentElement.offsetWidth, height: event.target.parentElement.offsetHeight };
+        var startSize = { width: DragTarget.parentElement.offsetWidth, height: DragTarget.parentElement.offsetHeight };
 
         function onMouseMove(event) {
             var newSize = {
@@ -75,20 +77,18 @@ NoteContainer.addEventListener('mousedown', function(event) {
             };
 
             // Update the new-note size
-            if (event.target.classList.contains('note-sizer')) {
-                event.target.parentElement.style.width = newSize.width + 'px';
-                event.target.parentElement.style.height = newSize.height + 'px';
-                event.target.parentElement.parentElement.style.width = newSize.width + 2 + 'px';
-                event.target.parentElement.parentElement.style.height = newSize.height + 'px';
-            }
+            DragTarget.parentElement.style.width = newSize.width + 'px';
+            DragTarget.parentElement.style.height = newSize.height + 'px';
+            DragTarget.parentElement.parentElement.style.width = newSize.width + 2 + 'px';
+            DragTarget.parentElement.parentElement.style.height = newSize.height + 'px';
         }
 
         document.addEventListener('mousemove', onMouseMove);
         document.addEventListener('mouseup', onMouseUp);
-    }
 
-    function onMouseUp() {
-        document.removeEventListener('mousemove', onMouseMove);
-        document.removeEventListener('mouseup', onMouseUp);
+        function onMouseUp() {
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
+        }
     }
 });
