@@ -3,20 +3,23 @@ document.getElementById('NoteMaker').addEventListener('keydown', function(event)
         event.preventDefault();
         console.log('Text box value:', event.target.value);
         //make a new note
+        var newNoteDragger = document.createElement('div');
         var newNote = document.createElement('div');
         newNote.className = 'new-note';
+        newNoteDragger.className = 'note-dragger'
         newNote.textContent = event.target.value;
-        document.getElementById('container').appendChild(newNote);
+        newNoteDragger.textContent = ' ';
+        document.getElementById('container').appendChild(newNoteDragger);
+        newNoteDragger.appendChild(newNote)
         //clear the text box
         event.target.value = '';
     }
 });
 
 var NoteContainer = document.getElementById('container');
-var mode = 'Dragging'
 
 NoteContainer.addEventListener('mousedown', function(event) {
-    if (event.target.classList.contains('new-note') && mode == 'Dragging') {
+    if (event.target.classList.contains('note-dragger')) {
         var startMousePos = { x: event.clientX, y: event.clientY };
         var startDivPos = { x: event.target.offsetLeft, y: event.target.offsetTop };
 
@@ -45,7 +48,7 @@ NoteContainer.addEventListener('mousedown', function(event) {
         
             //change the position of the note
             //sometimes the whole container moves so that's not good
-            if (event.target.classList.contains('new-note')) {
+            if (event.target.classList.contains('note-dragger')) {
                 event.target.style.left = newPosition.x + 'px';
                 event.target.style.top = newPosition.y + 'px';
             }
