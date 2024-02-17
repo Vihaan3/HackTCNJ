@@ -10,6 +10,10 @@ document.getElementById('NoteMaker').addEventListener('keydown', function(event)
         newNote.className = 'new-note';
         newNote.textContent = event.target.value;
         newNoteDragger.appendChild(newNote)
+        var noteSizer = document.createElement('div');
+        noteSizer.className = 'note-sizer';
+        noteSizer.textContent = ' ';
+        newNote.appendChild(noteSizer);
         //clear the text box
         event.target.value = '';
     }
@@ -18,6 +22,7 @@ document.getElementById('NoteMaker').addEventListener('keydown', function(event)
 var NoteContainer = document.getElementById('container');
 
 NoteContainer.addEventListener('mousedown', function(event) {
+
     if (event.target.classList.contains('note-dragger')) {
         var startMousePos = { x: event.clientX, y: event.clientY };
         var startDivPos = { x: event.target.offsetLeft, y: event.target.offsetTop };
@@ -57,5 +62,33 @@ NoteContainer.addEventListener('mousedown', function(event) {
             document.removeEventListener('mousemove', onMouseMove);
             document.removeEventListener('mouseup', onMouseUp);
         }
+    }
+    if (event.target.classList.contains('note-sizer')) {
+        event.preventDefault();
+        var startMousePos = { x: event.clientX, y: event.clientY };
+        var startSize = { width: event.target.parentElement.offsetWidth, height: event.target.parentElement.offsetHeight };
+
+        function onMouseMove(event) {
+            var newSize = {
+                width: startSize.width + (event.clientX - startMousePos.x),
+                height: startSize.height + (event.clientY - startMousePos.y)
+            };
+
+            // Update the new-note size
+            if (event.target.classList.contains('note-sizer')) {
+                event.target.parentElement.style.width = newSize.width + 'px';
+                event.target.parentElement.style.height = newSize.height + 'px';
+                event.target.parentElement.parentElement.style.width = newSize.width + 2 + 'px';
+                event.target.parentElement.parentElement.style.height = newSize.height + 'px';
+            }
+        }
+
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+    }
+
+    function onMouseUp() {
+        document.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('mouseup', onMouseUp);
     }
 });

@@ -5,6 +5,7 @@ body {
 }
 header {
     background-color: #f8f9fa;
+    color: #343a40;
     padding:  20px;
     text-align: center;
 }
@@ -20,6 +21,9 @@ nav ul {
 nav ul li {
     display: inline;
     margin-right:  10px;
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 10px;
 }
 main {
     padding:  20px;
@@ -50,6 +54,7 @@ footer {
     width: 90%;
     height: 80%;
     border: 3px solid #343a40;
+    border-radius: 5px;
 }
 
 .new-note {
@@ -62,6 +67,8 @@ footer {
     margin:  2 auto;
     margin-bottom:  100px;
     background-color: #f9f9f9;
+    border-radius: 0px 0px 5px 5px;
+    cursor: text;
 }
 .note-dragger {
     position: absolute;
@@ -69,6 +76,20 @@ footer {
     width: 102px;
     height: 120px;
     background-color: #343a40;
+    border-radius: 0px 0px 0px 5px;
+    cursor: move;
+}
+
+.note-sizer {
+    position: absolute;
+    z-index: 2;
+    width: 9px;
+    height: 9px;
+    left: 100%;
+    top: 100%;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 20px 0px 0px 0px;
     cursor: move;
 }
 
