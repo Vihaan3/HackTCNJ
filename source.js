@@ -1,25 +1,3 @@
-document.getElementById('NoteMaker').addEventListener('keydown', function(event) {
-    if (event.key === 'Enter') {
-        event.preventDefault();
-        //make a new note
-        var newNoteDragger = document.createElement('div');
-        newNoteDragger.className = 'note-dragger'
-        newNoteDragger.textContent = ' ';
-        document.getElementById('container').appendChild(newNoteDragger);
-        var newNote = document.createElement('div');
-        newNote.className = 'new-note';
-        newNote.textContent = event.target.value;
-        newNote.setAttribute('contenteditable', 'true');
-        newNoteDragger.appendChild(newNote)
-        var noteSizer = document.createElement('div');
-        noteSizer.className = 'note-sizer';
-        noteSizer.textContent = ' ';
-        newNote.appendChild(noteSizer);
-        //clear the text box
-        event.target.value = '';
-    }
-});
-
 var NoteContainer = document.getElementById('container');
 var DragTarget = null;
 var gridSize = 20;
@@ -101,30 +79,32 @@ contextMenu.id = 'custom-context-menu';
 contextMenu.style.display = 'none';
 contextMenu.style.position = 'absolute';
 contextMenu.style.zIndex = '1000';
-contextMenu.style.backgroundColor = '#fff';
+contextMenu.style.backgroundColor = '#343a40';
+contextMenu.style.color = '#ccc';
 contextMenu.style.border = '1px solid #ccc';
-contextMenu.innerHTML = '<ul><li id="option1">Option  1</li><li id="option2">Option  2</li></ul>';
+contextMenu.style.paddingRight = '25px';
+contextMenu.style.fontSize = '12';
+contextMenu.innerHTML = '<ul><li id="option1">Create a new note</li></ul>';
 document.body.appendChild(contextMenu);
 
 // Add event listeners to the document
 document.addEventListener('contextmenu', function(event) {
-    event.preventDefault(); // Prevent the default context menu from showing
-    contextMenu.style.top = event.pageY + 'px';
-    contextMenu.style.left = event.pageX + 'px';
-    contextMenu.style.display = 'block';
+    event.preventDefault();
+    MakeNewNote();
 });
 
-document.addEventListener('click', function() {
-    contextMenu.style.display = 'none'; // Hide the custom context menu when clicking outside
-});
-
-// Add event listeners to the custom context menu options
-document.getElementById('option1').addEventListener('click', function() {
-    alert('Option  1 clicked');
-    contextMenu.style.display = 'none';
-});
-
-document.getElementById('option2').addEventListener('click', function() {
-    alert('Option  2 clicked');
-    contextMenu.style.display = 'none';
-});
+function MakeNewNote() {
+    var newNoteDragger = document.createElement('div');
+    newNoteDragger.className = 'note-dragger'
+    newNoteDragger.textContent = ' ';
+    document.getElementById('container').appendChild(newNoteDragger);
+    var newNote = document.createElement('div');
+    newNote.className = 'new-note';
+    newNote.textContent = 'edit me!';
+    newNote.setAttribute('contenteditable', 'true');
+    newNoteDragger.appendChild(newNote)
+    var noteSizer = document.createElement('div');
+    noteSizer.className = 'note-sizer';
+    noteSizer.textContent = ' ';
+    newNote.appendChild(noteSizer);
+}
