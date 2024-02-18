@@ -1,6 +1,7 @@
 var NoteContainer = document.getElementById('container');
 var DragTarget = null;
 var gridSize = 20;
+var note_text = '';
 
 NoteContainer.addEventListener('mousedown', function(event) {
 
