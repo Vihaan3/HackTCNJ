@@ -26,7 +26,39 @@
     <footer>
         <p>&copy;?  website. No rights reserved yet I think.</p>
     </footer>
+    <script type="importmap">
+        {
+          "imports": {
+            "@google/generative-ai": "https://esm.run/@google/generative-ai"
+          }
+        }
+    </script>  
+    <script type="module">
+      import { GoogleGenerativeAI } from "@google/generative-ai";
+
+      const API_KEY = "AIzaSyB7NTfCkC3pF-jD6V9DhQBKl5Opyq4plvs";
+
+      const genAI = new GoogleGenerativeAI(API_KEY);
+// ...
+const model = genAI.getGenerativeModel({ model: "gemini-pro"});
+
+// Assuming the model has a method to generate text
+model.generateText({ prompt: "Once upon a time" })
+  .then(response => {
+    // Assuming the response contains the generated text
+    const generatedText = response.text;
+    const container = document.getElementById('container');
+    container.textContent = generatedText;
+  })
+  .catch(error => {
+    console.error('Error generating text:', error);
+  });
+// ...
+
+    </script>
+
 </body>
 </html>
 
 <script src="source.js"></script>
+<script> src = "source2.js"</script>
