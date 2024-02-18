@@ -109,3 +109,57 @@ function MakeNewNote() {
     noteSizer.textContent = ' ';
     newNote.appendChild(noteSizer);
 }
+async function MakeNewNote() {
+    var newNoteDragger = document.createElement('div');
+    newNoteDragger.className = 'note-dragger';
+    newNoteDragger.textContent = ' ';
+    document.getElementById('container').appendChild(newNoteDragger);
+
+    var newNote = document.createElement('div');
+    newNote.id = "new-note"
+    newNote.className = 'new-note';
+    newNote.textContent = 'edit me!';
+    newNote.setAttribute('contenteditable', 'true');
+    newNoteDragger.appendChild(newNote);
+
+    var noteSizer = document.createElement('div');
+    noteSizer.className = 'note-sizer';
+    noteSizer.textContent = ' ';
+    newNote.appendChild(noteSizer);
+
+    // Create a button element
+    var button = document.createElement('button');
+    button.textContent = 'AI Expand'; // Set the button text
+    button.className = 'note-button'; // Add a class for styling
+    newNote.appendChild(button); // Append the button to the note
+
+    // Set the contenteditable attribute of the parent element to false
+    newNote.setAttribute('contenteditable', 'false');
+
+    // Attach the event listener to the button
+    button.addEventListener("click", send_text_to_ai);
+    function send_text_to_ai() {
+        note_text = document.getElementById("new-note").textContent;
+        note_text = note_text.replace('AI Expand', '');
+        console.log(note_text);
+    }
+}
+
+import { GoogleGenerativeAI } from "@google/generative-ai";
+ 
+const Your_API_Key = "AIzaSyDCKm38Gqmwu1YywB6paoSkVXlJ-qLHKUk"
+const genAI = new GoogleGenerativeAI(Your_API_Key);
+
+async function run() {
+  // For text-only input, use the gemini-pro model
+  const model = genAI.getGenerativeModel({ model: "gemini-pro"});
+
+  const prompt = note_text;
+
+  const result = await model.generateContent(prompt);
+  const response = await result.response;
+  const text = response.text();
+  console.log(text);
+}
+
+run();
