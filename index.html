@@ -12,9 +12,42 @@
     </header>
     <nav>
         <ul>
-            <li><a href="#">Link or something</a></li>
+            <div class="left">
+                <button id="create-note-button">Create a note</button>
+                <button id="create-notebook-button">Create a notebook</button>
+                <button id="notebooks">Notebooks</button>                
+            </div>
+            <div class="right">
+                <button id="save">Save</button>
+                <button id="login-button">Log in</button>
+                <button id="signup-button">Sign up</button>
+            </div>
         </ul>
     </nav>
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <span class="login-close-button">&times;</span>
+            <form id="login-form">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <button type="submit">Log In</button>
+            </form>
+        </div>
+    </div>
+    <div id="signup-modal" class="modal">
+        <div class="modal-content">
+            <span class="signup-close-button">&times;</span>
+            <form id="signup-form">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <button type="submit">Sign up</button>
+            </form>
+        </div>
+    </div>
     <main>
         <main>
             <div id="container"></div>
@@ -27,4 +60,5 @@
 </body>
 </html>
 
+<script src="lib/index.js"></script>
 <script src="source.js"></script>
