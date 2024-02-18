@@ -1,3 +1,6 @@
+import {read} from 'lib/index.js';
+import {write} from 'lib/index.js';
+
 var NoteContainer = document.getElementById('container');
 var DragTarget = null;
 var gridSize = 20;
