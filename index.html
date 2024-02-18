@@ -32,27 +32,24 @@
         }
     </script>  
     <script type="module">
-      import { GoogleGenerativeAI } from "@google/generative-ai";
+        import { GoogleGenerativeAI } from "@google/generative-ai";
+ 
+const Your_API_Key = "API key that you copied"
+const genAI = new GoogleGenerativeAI(Your_API_Key);
 
-      const API_KEY = "AIzaSyB7NTfCkC3pF-jD6V9DhQBKl5Opyq4plvs";
+async function run() {
+  // For text-only input, use the gemini-pro model
+  const model = genAI.getGenerativeModel({ model: "gemini-pro"});
 
-      const genAI = new GoogleGenerativeAI(API_KEY);
-// ...
-const model = genAI.getGenerativeModel({ model: "gemini-pro"});
+  const prompt = "Tell me a joke"
 
-// Assuming the model has a method to generate text
-model.generateText({ prompt: "Once upon a time" })
-  .then(response => {
-    // Assuming the response contains the generated text
-    const generatedText = response.text;
-    const container = document.getElementById('container');
-    container.textContent = generatedText;
-  })
-  .catch(error => {
-    console.error('Error generating text:', error);
-  });
-// ...
+  const result = await model.generateContent(prompt);
+  const response = await result.response;
+  const text = response.text();
+  console.log(text);
+}
 
+run();
     </script>
 
 </body>
